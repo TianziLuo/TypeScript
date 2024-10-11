@@ -6,7 +6,7 @@ function App() {
  return(
   <div>
     < Stack />
-    <Queue />
+    < Queue />
   </div>
  )
 }

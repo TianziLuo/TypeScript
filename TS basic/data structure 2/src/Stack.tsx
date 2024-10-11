@@ -56,7 +56,7 @@
             <h1>Stack:</h1>
             <p>{`checking the top item: ${stack.peek()}`}</p>
             <p>{`Removes the last element: ${stack.pop()}`}</p>
-            <p>{`Returns the number of elements: ${stack.size()}`}</p>
+            <p>{`Returns the number of elements in the stack: ${stack.size()}`}</p>
             <p>{`Check if the stack is empty: ${stack.isEmpty()}`}</p>
         </div>
     )
