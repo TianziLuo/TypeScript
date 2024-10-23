@@ -1,0 +1,13 @@
+1. what is an interface
+    a contract that defines the shape of data
+
+2. how to define an interface
+    interface InterfaceName {
+        propertyName: PropertyType;
+        methodName(param: ParamType): ReturnType;
+    }
+
+3. when to use interface
+    # defining the structure of objects
+    # defining the shape of functions
+    # describing the structure of classes

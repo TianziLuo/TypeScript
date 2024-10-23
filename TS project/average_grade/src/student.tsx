@@ -9,5 +9,5 @@ interface Student{
 }
 
 class StudentManager{
-    
+  private student: Student[] = []  
 }
