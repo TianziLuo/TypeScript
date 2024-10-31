@@ -1,0 +1,6 @@
+map(): Array
+
+1.  array method, operating on each element of an array and returns a new array
+2.  keep original array, generates a new array
+
+

@@ -1,48 +1,77 @@
 import React,{useState} from "react"
 
+//interface
 interface Item{
     id:number;
     itemName:string;
     price: number;
 }
 
-//
 interface CartItem{
+    id: number;
     count: number;
     itemName: string;
     totalPrice: number;
 }
 
-const item1: Item = {id:1, itemName:"water", price:2};
-const item2: Item = {id:2, itemName:"milk tea", price:4.5};
-const item3: Item = {id:3, itemName:"coffee", price:3.75};
-const item4: Item = {id:4, itemName:"latte", price:4.5};
-const item5: Item = {id:5, itemName:"frappuccino", price:7};
+const itemList: Item[] = [
+    {id:1, itemName:"Water", price:2},
+    {id:2, itemName:"Milk Tea", price:4.5},
+    {id:3, itemName:"Coffee", price:3.75},
+    {id:4, itemName:"Latte", price:4.5},
+    {id:5, itemName:"Frappuccino", price:7},
+];
 
-const itemList: Item[] = [item1, item2, item3, item4,item5];
-
+const itemListString: string[]= itemList.map(item => `${item.itemName}: $${item.price}`)
+// console.log(itemListString);
 
 const ShoppingPage: React.FC = () =>{
 
-    const [addCart, setAddCart] = useState<object>();
-    // 
-    const [cartList, setCartList] = useState<string[]>([]);
+    // const [addCart, setAddCart] = useState<Item | null>(null);
+    const [cartList, setCartList] = useState<CartItem[]>([]);
     
-    const addToCart = (key:number) => {
-        setAddCart(itemList[key])
-    }
+    const addToCartClick = (key:number) => {
+        const selectedItem = itemList[key];
 
-
+        //console.log(typeof(addCart));
+        const findItem: CartItem | undefined = cartList.find(item => item.id === selectedItem.id);
+        if(findItem){
+            const updateItem: CartItem = {
+                ...findItem,
+                count: findItem.count + 1,
+                totalPrice: findItem.totalPrice + selectedItem.price,
+            }
+            const currentList = cartList.filter(item => item.id !== selectedItem.id)
+            setCartList([...currentList,updateItem])
+        }else{
+            setCartList(cartList =>[...cartList,{
+                id:selectedItem.id, 
+                 count:1, 
+                 itemName:selectedItem.itemName, 
+                 totalPrice: selectedItem.price,
+                }]);
+        }
+        };
 
     return(
         <div>
             <div className="items">
-                {itemList.map((item,index) => (
-                    <ul key={index}><p className="intemName">{item.itemName} ${item.price}</p>
-                        <button onClick={() => addToCart(index)}> Add To Cart </button>
+                {itemListString.map((item,index) => (
+                    <ul key={index}>
+                        <p className="itemDisplay">{item}</p>
+                        <button onClick={() => addToCartClick(index)}> Add To Cart </button>
                     </ul>
                 ))}
-
+            </div>
+            <div className="cart">
+                <h1> Shopping Cart</h1>
+                {cartList.map(cartItem => (
+                    <ul key={cartItem.id}>
+                        <p className="cartDisplay">
+                            {cartItem.itemName}  Qty: {cartItem.count}  Total Price: ${cartItem.totalPrice.toFixed(2)}
+                        </p>
+                    </ul>
+                ))}
             </div>
         </div>
     )
