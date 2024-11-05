@@ -1,0 +1,4 @@
+//useRef() = "useReference" does not cause re-renders when its value changes
+//             1. Accessing/Ineracting with Dom elements
+//             2. Hnadling Foocus, animations and Transitions
+//             3. manageing timers and intervals
