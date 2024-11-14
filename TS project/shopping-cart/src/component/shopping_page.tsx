@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { itemList } from "./component/itemList";
-import { CartItem } from "./component/interface";
+import { itemList } from "./itemList";
+import { CartItem } from "./interface";
+import "./shopping_page.css";
 
 const ShoppingPage: React.FC = () => {
     const [cartList, setCartList] = useState<CartItem[]>([]);
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
+    const toggleCart = () => {
+        setIsCartOpen(!isCartOpen);
+    };
 
     // Add item to cart
     const addToCartClick = (id: number) => {
@@ -59,32 +65,44 @@ const ShoppingPage: React.FC = () => {
     };
 
     return (
-        <div>
-             <div className="items">
-                <h1> PP's Market </h1>
+        <div className="shopping-page">
+            <h1>PP's Market</h1>
+            <button className="cart-toggle-button" onClick={toggleCart}>
+                {isCartOpen ? "Close Cart" : "Open Cart"}
+            </button>
+            {isCartOpen && (
+                <div className="cart-popup">
+                    <h2>Shopping Cart</h2>
+                    {cartList.length > 0 ? (
+                        cartList.map(cartItem => (
+                            <div key={cartItem.id} className="cart-item">
+                                <p>
+                                    {cartItem.itemName} (Qty: {cartItem.count}) - ${cartItem.totalPrice.toFixed(2)}
+                                </p>
+                                <button
+                                    className="delete-button"
+                                    onClick={() => deleteFromCartClick(cartItem.id)}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Your cart is empty.</p>
+                    )}
+                </div>
+            )}
+            <div className="items">
                 {itemList.map(item => (
-                    <li key={item.id}>
-                        <p className="itemDisplay">
-                            <img src={item.image} alt={item.itemName} style={{ width: "50px", height: "50px", marginRight: "10px" }} />
-                            <br />
-                            {item.itemName}: ${item.price.toFixed(2)}
-                            <button onClick={() => addToCartClick(item.id)}>Add To Cart</button>
+                    <div key={item.id} className="item">
+                        <img src={item.image} alt={item.itemName} className="item-image" />
+                        <p className="item-info">
+                            <strong>{item.itemName}</strong> - ${item.price.toFixed(2)}
                         </p>
-                    </li>
-                ))}
-            </div>
-            <div className="cart">
-                <h1> Shopping Cart </h1>
-                {cartList.map(cartItem => (
-                    <li key={cartItem.id}>
-                        <p className="cartDisplay">
-                            {cartItem.itemName} Qty: {cartItem.count} Total Price: $
-                            {cartItem.totalPrice.toFixed(2)}
-                            <button onClick={() => deleteFromCartClick(cartItem.id)}>
-                                Delete From Cart
-                            </button>
-                        </p>
-                    </li>
+                        <button className="add-button" onClick={() => addToCartClick(item.id)}>
+                            Add To Cart
+                        </button>
+                    </div>
                 ))}
             </div>
         </div>
@@ -92,4 +110,3 @@ const ShoppingPage: React.FC = () => {
 };
 
 export default ShoppingPage;
-

@@ -1,5 +1,4 @@
-import ShoppingPage from './shopping_page.tsx'
-
+import ShoppingPage from './component/shopping_page'
 function App() {
   return(
     <div>
