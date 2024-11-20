@@ -1,9 +1,9 @@
-import InputComp from './components/input'
+import BlogList from './components/blogList'
 
 function App() {
   return (
    <div>
-      <InputComp />
+      <BlogList />
    </div>
   )
 }
