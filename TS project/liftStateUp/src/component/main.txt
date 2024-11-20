@@ -1,0 +1,3 @@
+App (根组件)
+  ├── ChildComponent (子组件)
+  │       └── GrandChildComponent (孙组件)
