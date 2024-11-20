@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState} from "react";
 
 const DropdownInputIE: React.FC = () =>{
 
@@ -8,10 +8,10 @@ const DropdownInputIE: React.FC = () =>{
     const [isOpen, setIsOpen] = useState<boolean>(false);
     //store the selected option value
     const [inputValue, setInputValue] = useState<string>('');
-    const dropdownRef = useRef(null);
+  
 
     const toggleDropDown = () =>{
-        setIsOpen(!isOpen);
+        setIsOpen((pre) => !pre);
     };
 
     const selectOption = (option: string) => {
@@ -19,21 +19,9 @@ const DropdownInputIE: React.FC = () =>{
         setIsOpen(false);
     }
     
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-            setIsOpen(false);
-          }
-        };
-    
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
-        };
-      }, []);
-    
+  
       return (
-        <div className="input-container" ref={dropdownRef}>
+        <div className="input-container">
           <input
             type="text"
             className="input-field"

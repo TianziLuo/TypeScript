@@ -1,6 +1,14 @@
 import React from 'react'
-import { Blog }from '.../interface' 
+import { Blog }from './interface' 
+import BlogList from './blogList'
 import { useState } from 'react'
+
+// ComponentProps:  properties (props) that are passed to a component
+interface InputCompProps {
+    setMyBlog:React.Dispatch<React.SetStateAction<Blog[]>>;
+    currentBlogs: Blog[];
+
+}
 
 const InputComp: React.FC = () => {
     const [nextId, setNextId] = useState<number>(0);
@@ -36,27 +44,10 @@ const InputComp: React.FC = () => {
                    placeholder='Enter Blog Title'
                    onChange={handleTitleChange}
                    />
-
-                <p>Blog Content</p>
-                <input type="text"
-                   placeholder='Enter Blog Content'
-                   onChange={handleContentChange}
-                   />
-               <button onClick={handleSave}>Save Change</button>
-            </div>
-
-            <div>
-                {myBlog.map((blog) => (
-                    <div key={blog.id} className='blog-entry'>
-                        <h2>{blog.title}</h2>
-                        <p>{blog.content}</p>
-                        <small>{blog.createdAt}</small>
-                    </div>
-                ))}
-            </div>
-            
+   
        </div> 
     )
 }
+
 export default InputComp
 

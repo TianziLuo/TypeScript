@@ -1,4 +1,4 @@
-import DropdownInputIE from "./DropDownIE.tsx"
+import DropdownInputIE from "./component/DropDownIE.tsx"
 
 function App() {
   return (
